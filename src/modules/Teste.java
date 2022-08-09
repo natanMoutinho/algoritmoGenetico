@@ -2,6 +2,7 @@ package modules;
 
 import java.util.ArrayList;
 import modules.core.*;
+import modules.roleta.Roleta;
 
 public class Teste {
     private ArrayList<Objeto> listaObj;
@@ -23,7 +24,7 @@ public class Teste {
 
     public void teste2(){
         testeListObj1();
-        Populacao pop = new Populacao(10,this.listaObj);
+        Populacao pop = new Populacao(10,this.listaObj,10);
         
         System.out.print("[ ");
         for(int i=0;i<listaObj.size();i++){
@@ -35,10 +36,10 @@ public class Teste {
 
     public void teste3 (){
         testeListObj1();
-        Populacao pop = new Populacao(10,this.listaObj);
+        Populacao pop = new Populacao(10,this.listaObj,10);
         pop.imprimirListIndividuos();
 
-        Roleta roleta = new Roleta(12);
+        Roleta roleta = new Roleta();
 
         Individuo individuoAtual;
         
@@ -55,13 +56,39 @@ public class Teste {
 
         
     }
-
+    /*
+     * Foi gerado uma populaação 
+     */
     public void teste4(){
         testeListObj1();
-        Populacao pop = new Populacao(10,this.listaObj);
+        Populacao pop = new Populacao(10,this.listaObj,2500);
         pop.imprimirListIndividuos();
 
+        Roleta roletaIndividuos = new Roleta();
+        Individuo individuoAtual;
+        for (int i = 0; i < pop.getListIndividuos().size(); i++) {
+            individuoAtual = pop.getListIndividuos().get(i);
+            roletaIndividuos.configurarRoleta(individuoAtual.getId(), individuoAtual.getGeracao(),
+                    pop.calcularProbabilidade(individuoAtual));
+            
+        }
+
+        System.out.println("Roleta tamanho: "+roletaIndividuos.getListaRoleta().length);
+        for(int i=0;i<roletaIndividuos.getListaRoleta().length;i++){
+            System.out.print(roletaIndividuos.getListaRoleta()[i][1]);
+        }
         // Reproducao reproducao = new Reproducao(pop);
+        
+    }
+
+    public void teste5(){
+        testeListObj1();
+        Populacao pop = new Populacao(10,this.listaObj,2500);
+        pop.imprimirListIndividuos();
+
+        Reproducao reprodutores = new Reproducao(pop,100);
+
+        reprodutores.realizarCrossOver();
         
     }
 //==============================================================================

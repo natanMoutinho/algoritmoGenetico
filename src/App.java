@@ -17,8 +17,8 @@ import modules.*;
 import modules.core.Objeto;
 public class App {
     public static void main(String[] args) throws Exception {
-        // Teste teste = new Teste();
-        // teste.teste4();
+        Teste teste = new Teste();
+        teste.teste5();
         
         
         

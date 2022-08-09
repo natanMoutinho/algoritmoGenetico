@@ -17,4 +17,7 @@ public class Objeto {
     public double getValor(){
         return this.valor;
     }
+    public double getPeso(){
+        return this.peso;
+    }
 }
