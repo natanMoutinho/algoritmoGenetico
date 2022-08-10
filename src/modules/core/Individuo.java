@@ -23,6 +23,15 @@ public class Individuo {
         }
         // System.out.println("Teste: "+this.cromossomo);
     }
+
+    public Individuo (int id, int geracao, int[] cromossomo){
+        this.id = id;
+        this.geracao = geracao;
+        this.fitnessValue = 0.0;
+        this.probabilidadeEscolha = 0.0;
+        this.peso = 0.0;
+        this.cromossomo = cromossomo;
+    }
 //==============================================================================
     // public void calcularValorFitness(ArrayList<Objeto> arrayObj){
     //     for(int i=0;i<arrayObj.size();i++){

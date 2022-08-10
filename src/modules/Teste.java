@@ -39,7 +39,7 @@ public class Teste {
         Populacao pop = new Populacao(10,this.listaObj,10);
         pop.imprimirListIndividuos();
 
-        Roleta roleta = new Roleta();
+        Roleta roleta = new Roleta(100);
 
         Individuo individuoAtual;
         
@@ -64,7 +64,7 @@ public class Teste {
         Populacao pop = new Populacao(10,this.listaObj,2500);
         pop.imprimirListIndividuos();
 
-        Roleta roletaIndividuos = new Roleta();
+        Roleta roletaIndividuos = new Roleta(100);
         Individuo individuoAtual;
         for (int i = 0; i < pop.getListIndividuos().size(); i++) {
             individuoAtual = pop.getListIndividuos().get(i);
@@ -81,14 +81,14 @@ public class Teste {
         
     }
 
-    public void teste5(){
+    public void teste5() throws CloneNotSupportedException{
         testeListObj1();
-        Populacao pop = new Populacao(10,this.listaObj,2500);
+        Populacao pop = new Populacao(10,this.listaObj,1000);
         pop.imprimirListIndividuos();
 
-        Reproducao reprodutores = new Reproducao(pop,100);
+        Reproducao reprodutores = new Reproducao(pop,100,5);
 
-        reprodutores.realizarCrossOver();
+        reprodutores.gerarNovaGeracao();
         
     }
 //==============================================================================

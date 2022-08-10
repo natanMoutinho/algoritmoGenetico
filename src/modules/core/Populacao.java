@@ -8,13 +8,15 @@ import java.util.ArrayList;
     Nessa classes deve ser necessário ordenar os individuos
 
 */
-public class Populacao {
+public class Populacao implements Cloneable {
 
     private ArrayList<Objeto> listObjetos;
     private ArrayList<Individuo> populacao;
     private int qtdIndividuo;
     private double somatorioFitness;
     private int pesoMaximo;
+
+    private int geracao;
 
     private Populacao geracaoAntiga;
 
@@ -24,15 +26,21 @@ public class Populacao {
         this.listObjetos = listObjetos;
         this.populacao = new ArrayList<Individuo>();
         this.somatorioFitness = 0.0;
+        this.geracao = 1;
         this.pesoMaximo = pesoMaximo;
         criarIndividuos();
     }
 
-    public Populacao(ArrayList<Individuo> listInviduos, double somaFitness) {
-        this.populacao = (ArrayList)listInviduos.clone();
-        this.somatorioFitness = somaFitness;
-    }
+    // public Populacao(ArrayList<Individuo> listInviduos, double somaFitness, ArrayList<Objeto> listObjetos)  {
+    //     this.populacao = (ArrayList)listInviduos.clone();
+    //     this.listObjetos = listObjetos;
+    //     this.somatorioFitness = somaFitness;
+    // }
 
+    @Override
+    public Populacao clone() throws CloneNotSupportedException {
+        return (Populacao) super.clone();
+    }
     // ==============================================================================
     public void imprimirListIndividuos() {
         Individuo individuoAtual;
@@ -40,7 +48,7 @@ public class Populacao {
         System.out.print("\n");
         for (int i = 0; i < this.populacao.size(); i++) {
             individuoAtual = this.populacao.get(i);
-            System.out.print(i + " - Individuo: " + individuoAtual.getId() + "\t-> ");
+            System.out.print(i + " - Individuo: " + individuoAtual.getId()+"x"+individuoAtual.getGeracao()+ "\t-> ");
             individuoAtual.imprirmirVetSolucao();
             System.out.println("\t| funcaoDeAptidao: "+calcularProbabilidade(individuoAtual));
 
@@ -61,15 +69,18 @@ public class Populacao {
     }
 
     public int qtdIndividusoAptos(){
-        int cont=0;
+        int cont= 0;// this.getListIndividuos().size();
         for(int i=0;i<this.populacao.size();i++){
-            if(this.populacao.get(i).getFitnessValue() > 0){
+            if(this.populacao.get(i).getFitnessValue() == 0){
                 cont ++;
             }
         }
-        return cont;
+        return  this.getListIndividuos().size()-cont;
     }
 
+    public void limparIndividuos(){
+        this.populacao.removeAll(this.populacao);
+    }
     // =============== Métodos privados que são importantes
     private void criarIndividuos() {
         for (int i = 1; i <= this.qtdIndividuo; i++) {
@@ -98,6 +109,12 @@ public class Populacao {
 
     private double calcularValorFitness(int[] cromossomo) {
         double valorTotal = 0;
+
+        // System.out.println("\nQtdCromossomo: "+cromossomo.length+"\n");
+        // // System.out.println("\nObjeto: "+this.listObjetos+"\n");
+        // for (int i = 0; i < cromossomo.length; i++) {
+        //     System.out.println(cromossomo[i]+"\t");
+        // }
         for (int i = 0; i < cromossomo.length; i++) {
             if (cromossomo[i] == 1) {
                 valorTotal += this.listObjetos.get(i).getValor();
@@ -135,25 +152,33 @@ public class Populacao {
     private void avaliarIndividuo(Individuo individuo, ArrayList<Objeto> listaObjetos, int pesoMaximo){
         double fitnessValue = calcularValorFitness(individuo.getCromossos());
         double peso = calcularPeso(individuo.getCromossos());
-
-        if(peso <= pesoMaximo){
-            individuo.setFitnessValue(fitnessValue);
-        } else{
-            individuo.setFitnessValue(0.0);
-        }
+        individuo.setFitnessValue(fitnessValue);
+        // if(peso <= pesoMaximo){
+        //     individuo.setFitnessValue(fitnessValue);
+        // } else{
+        //     individuo.setFitnessValue(0.0);
+        // }
         individuo.setPeso(peso);
     }
 
-    public void avaliarPopulacao(){
-        
+    public Objeto encontrarObj(int posicao){
+        return this.listObjetos.get(posicao);
     }
     // ==============================================================================
     public ArrayList<Individuo> getListIndividuos() {
         return this.populacao;
     }
 
+    public ArrayList<Objeto> getListObj(){
+        return this.listObjetos;
+    }
+
     public double getSomaFitness() {
         return this.somatorioFitness;
+    }
+
+    public int getGeraca(){
+        return this.geracao;
     }
 
 }

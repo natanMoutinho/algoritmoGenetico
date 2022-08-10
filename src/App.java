@@ -2,8 +2,8 @@
             [x] Primeiro será necessário gerar a população de forma aleatório
             [x] Agr será necessário avaliar a população para realizar a avaliação
             [x] Agr será necessário girar a roleta para escolhar um individuo
-            [] Dps será necessário girar para criar escolher outro individuo
-            [] será repetido essa girada na roleta até ter compor todos os pares possíveis
+            [x] Dps será necessário girar para criar escolher outro individuo
+            [x] será repetido essa girada na roleta até ter compor todos os pares possíveis
             [] agr deverá ter o giro para saber da mutação
             [] agr será girada a roleta mais uma vez para realizar para escolher o tipo de genes que seram trocados
             [] Dps disso TUDO, será necessário criar a nova geração
@@ -20,9 +20,25 @@ public class App {
         Teste teste = new Teste();
         teste.teste5();
         
+        // for(int i=0;i<=10;i +=2){
+        //     System.out.println(i+"\t"+(i+1));
+        // }
+        
+        // int[] novo1 = new int[2];
+        // novo1[0] = 5;
+        // novo1[1] = 5;
+
+        // int[] novo2 = new int[2];
+        // novo2[0] = 1;
+        // novo2[1] = 1;
+
+        // ArrayList<Integer> asdf = new ArrayList<Integer>();
+
+        //     asdf.add(novo1);
+        //     asdf.add(novo2);
         
         
-        
+
         // int[] qwert = aaa();
         // System.out.println("asdfasdf: "+qwert[0]);
 

@@ -12,28 +12,20 @@ public class Roleta {
     private int qtdlinhas;
 
     // =====================================================================================
-    public Roleta() {
-        this.listaRoleta = new int[100][2];
+    public Roleta(int qtdLinha) {
+        this.listaRoleta = new int[qtdLinha][2];
         this.qtdlinhas = 100;
         this.statusRoleta = 0;
     }
 
     // =====================================================================================
     public void configurarRoleta(int id, int valorSecundario, double probabilidade) {
-        System.out.println("\nFunção configurarRoleta");
-        int qtdEspacos = ((int) Math.round(probabilidade * 100));
+        // System.out.println("\nFunção configurarRoleta");
+        int qtdEspacos = ((int) Math.round(probabilidade * this.qtdlinhas));
         // System.out.println("\nId: "+id+"\tprobabilidade: "+probabilidade+"\tQtdEspaços: "+qtdEspacos);
-        // int condParada = 0;
-        // for (int i = 0; (i < this.listaRoleta.length); i++) {
-        //     if (this.listaRoleta[i][1] == 0) {
-        //         condParada = i;
-        //         break;
-        //     }
-        // }
-        System.out.println("Somatório: "+(statusRoleta+qtdEspacos));
+
+        // System.out.println("Somatório: "+(statusRoleta+qtdEspacos));
         for(int i = statusRoleta;i<(statusRoleta+qtdEspacos) && i<=100;i++){
-            // System.out.print(this.statusRoleta+"->"+qtdEspacos+"  ");
-            // System.out.println("\t=======> "+(i==100));
             if(i==100){
                 break;
             }
@@ -64,17 +56,22 @@ public class Roleta {
     }
 
     public int sortearGene() {
-        while (true) {
-            int valorAleatorio = valorAleatorio();
-            int[] valores = new int[2];
-            if ( getGeracao(this.listaRoleta,valorAleatorio) > 0) {
-                valores[0] = getGeracao(this.listaRoleta,valorAleatorio);
-                valores[1] = getId(this.listaRoleta,valorAleatorio);
-                return valorAleatorio;
-            }
-        }
+        return valorAleatorioGene();
+        // while (true) {
+        //     int valorAleatorio = valorAleatorioGene();
+        //     int[] valores = new int[2];
+        //     if ( getGeracao(this.listaRoleta,valorAleatorio) > 0) {
+                
+        //         return valorAleatorio;
+        //     }
+        // }
     }
 
+    public int[] sortearPosicao(){
+        int posicao = valorAleatorio();
+        int valor[] = this.listaRoleta[posicao];
+        return valor;
+    }
 
     public void zerarRoleta(){
         this.statusRoleta = 0;
@@ -101,7 +98,12 @@ public class Roleta {
     }
     // =====================================================================================
     private int valorAleatorio(){
-        int valorAleatorio = new Random().nextInt(100);
+        int valorAleatorio = new Random().nextInt(this.qtdlinhas);
+        return valorAleatorio;
+    }
+
+    private int valorAleatorioGene(){
+        int valorAleatorio = new Random().nextInt(this.qtdlinhas);
         return valorAleatorio;
     }
     // private class Valor{
